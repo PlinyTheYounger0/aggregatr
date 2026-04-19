@@ -2,13 +2,7 @@ package main
 
 import (
 	"errors"
-
-	"github.com/PlinyTheYounger0/aggregatr/internal/config"
 )
-
-type state struct {
-	cfg *config.Config
-}
 
 type command struct {
 	Name string
