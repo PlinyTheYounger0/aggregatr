@@ -94,7 +94,7 @@ func handlerAddFeed(s *state, cmd command, user database.User) error {
 	if err != nil {
 		return fmt.Errorf("Error Creating Feed Follow: %w", err)
 	}
-	fmt.Printf("%s Feed Followed by %s.", feedFollow.FeedName, feedFollow.UserName)
+	fmt.Printf("%s Feed Followed by %s.\n", feedFollow.FeedName, feedFollow.UserName)
 	return nil
 }
 

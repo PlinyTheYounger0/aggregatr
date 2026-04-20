@@ -25,12 +25,14 @@ func handlerRegister(s *state, cmd command) error {
 		return fmt.Errorf("Error Creating User: %w", err)
 	}
 
+	fmt.Printf("%s Registered Successfully.\n", user.Name)
+
 	err = s.cfg.SetUser(user.Name)
 	if err != nil {
 		return err
 	}
 
-	fmt.Printf("%s Registered Successfully.\n", user.Name)
+	fmt.Printf("%s Logged In Successfully.\n", user.Name)
 
 	return nil
 }
@@ -41,17 +43,17 @@ func handlerLogin(s *state, cmd command) error {
 	}
 
 	userName := cmd.Args[0]
-	_, err := s.db.GetUser(context.Background(), userName)
+	user, err := s.db.GetUser(context.Background(), userName)
 	if err != nil {
 		return fmt.Errorf("Unable to find %s: %w", userName, err)
 	}
 
 	err = s.cfg.SetUser(userName)
 	if err != nil {
-		return fmt.Errorf("Unable to set user %s: %w", userName, err)
+		return fmt.Errorf("Unable to set user %s: %w", user.Name, err)
 	}
 
-	fmt.Printf("User has been set to %s.\n", userName)
+	fmt.Printf("%s Logged In Successfully.\n", user.Name)
 	return nil
 }
 
@@ -59,6 +61,10 @@ func handlerUsers(s *state, cmd command) error {
 	users, err := s.db.GetUsers(context.Background())
 	if err != nil {
 		return fmt.Errorf("Error Fetching Users: %w", err)
+	}
+
+	if len(users) == 0 {
+		fmt.Println("No Users Registered.")
 	}
 
 	for _, user := range users {
