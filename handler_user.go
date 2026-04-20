@@ -30,15 +30,9 @@ func handlerRegister(s *state, cmd command) error {
 		return err
 	}
 
-	fmt.Printf("%s created successfully.\n", user.Name)
-	printUser(user)
+	fmt.Printf("%s Registered Successfully.\n", user.Name)
 
 	return nil
-}
-
-func printUser(user database.User) {
-	fmt.Printf("ID: %v\n", user.ID)
-	fmt.Printf("Name: %v\n", user.Name)
 }
 
 func handlerLogin(s *state, cmd command) error {
