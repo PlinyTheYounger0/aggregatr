@@ -36,16 +36,16 @@ func main() {
 	}
 
 	cmds := commands{make(map[string]func(state *state, cmd command) error)}
-	cmds.register("login", handlerLogin)
 	cmds.register("register", handlerRegister)
+	cmds.register("login", handlerLogin)
 	cmds.register("reset", handlerReset)
 	cmds.register("users", handlerUsers)
-	cmds.register("agg", handlerAgg)
 	cmds.register("addfeed", middlewareLoggedIn(handlerAddFeed))
-	cmds.register("feeds", handlerListFeeds)
 	cmds.register("follow", middlewareLoggedIn(handlerFollow))
-	cmds.register("following", middlewareLoggedIn(handlerFollowing))
 	cmds.register("unfollow", middlewareLoggedIn(handlerUnfollow))
+	cmds.register("feeds", handlerListFeeds)
+	cmds.register("following", middlewareLoggedIn(handlerFollowing))
+	cmds.register("agg", handlerAgg)
 	cmds.register("browse", middlewareLoggedIn(handlerBrowse))
 
 	input := os.Args
